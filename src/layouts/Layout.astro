@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import LanguageSwitcher from '../components/LanguageSwitcher.astro';
 import BookingModal from '../components/BookingModal.astro';
+import BottomNav from '../components/BottomNav.astro';
 import { getLang, useTranslations } from '../i18n/utils';
 
 const lang = getLang(Astro.currentLocale);
@@ -49,9 +50,10 @@ const { title = t('page.title') } = Astro.props;
     <LanguageSwitcher />
     <BookingModal />
     <slot />
+    <BottomNav />
 
     <!-- WhatsApp chat bubble -->
-    <div class="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3">
+    <div class="fixed bottom-20 md:bottom-6 right-6 z-50 flex flex-col items-end gap-3">
 
       <!-- Popup panel -->
       <div id="wa-popup" class="w-72 bg-white rounded-2xl shadow-2xl overflow-hidden" style="display:none;">
