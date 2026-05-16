@@ -1,6 +1,4 @@
 ---
-import { languages } from '../i18n/ui';
-
 const currentLang = Astro.currentLocale ?? 'cs';
 
 const links = [
@@ -11,20 +9,59 @@ const links = [
 ];
 ---
 
-<div translate="no" class="fixed top-5 right-5 z-50 flex items-center gap-1 bg-black/50 backdrop-blur-sm rounded-full px-3 py-2 shadow-xl border border-white/15">
-  {links.map(({ code, href }) => (
-    <a
-      href={href}
-      class:list={[
-        'font-body text-sm font-bold px-3.5 py-1.5 rounded-full transition-all duration-200 tracking-widest',
-        currentLang === code
-          ? 'bg-accent text-white shadow-md'
-          : 'text-white/80 hover:text-white hover:bg-white/20'
-      ]}
-      aria-label={languages[code as keyof typeof languages]}
-      aria-current={currentLang === code ? 'page' : undefined}
+<div translate="no" class="fixed top-5 right-5 z-50">
+  <div class="relative" id="lang-switcher">
+    <button
+      id="lang-btn"
+      class="flex items-center gap-2 bg-black/50 backdrop-blur-sm rounded-full px-4 py-2 shadow-xl border border-white/15 text-white font-body text-sm font-bold tracking-widest"
+      aria-haspopup="true"
+      aria-expanded="false"
     >
-      {code.toUpperCase()}
-    </a>
-  ))}
+      {currentLang.toUpperCase()}
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 transition-transform duration-200" id="lang-arrow" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+      </svg>
+    </button>
+
+    <div
+      id="lang-menu"
+      class="absolute right-0 top-full mt-2 bg-black/80 backdrop-blur-sm rounded-2xl shadow-xl border border-white/15 overflow-hidden hidden"
+    >
+      {links.map(({ code, href }) => (
+        <a
+          href={href}
+          class:list={[
+            'block px-5 py-2.5 font-body text-sm font-bold tracking-widest transition-colors duration-150',
+            currentLang === code
+              ? 'bg-accent text-white'
+              : 'text-white/80 hover:text-white hover:bg-white/20'
+          ]}
+          aria-current={currentLang === code ? 'page' : undefined}
+        >
+          {code.toUpperCase()}
+        </a>
+      ))}
+    </div>
+  </div>
 </div>
+
+<script>
+  const btn = document.getElementById('lang-btn');
+  const menu = document.getElementById('lang-menu');
+  const arrow = document.getElementById('lang-arrow');
+
+  btn?.addEventListener('click', () => {
+    const open = !menu?.classList.contains('hidden');
+    menu?.classList.toggle('hidden', open);
+    arrow?.classList.toggle('rotate-180', !open);
+    btn.setAttribute('aria-expanded', String(!open));
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!document.getElementById('lang-switcher')?.contains(e.target as Node)) {
+      menu?.classList.add('hidden');
+      arrow?.classList.remove('rotate-180');
+      btn?.setAttribute('aria-expanded', 'false');
+    }
+  });
+</script>
