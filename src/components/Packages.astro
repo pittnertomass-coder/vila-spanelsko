@@ -61,11 +61,11 @@ const rows = [
       </p>
     </div>
 
-    <!-- Cards grid -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-start pt-5">
+    <!-- Cards – scroll na mobilu, grid na desktopu -->
+    <div class="flex md:grid md:grid-cols-3 gap-6 items-start pt-5 overflow-x-auto snap-x snap-mandatory pb-4 md:pb-0 md:overflow-visible scrollbar-hide -mx-4 px-4 md:mx-0 md:px-0">
 
       <!-- ESSENTIAL -->
-      <div class="bg-white rounded-2xl shadow-sm border border-stone-200 overflow-hidden flex flex-col">
+      <div class="bg-white rounded-2xl shadow-sm border border-stone-200 overflow-hidden flex flex-col flex-shrink-0 w-[80vw] md:w-auto snap-center">
         <div class="px-8 pt-8 pb-6 border-b border-stone-100">
           <p class="font-body text-xs font-bold tracking-widest text-text-main/40 uppercase mb-1">
             {t('packages.essential.sub')}
@@ -96,7 +96,7 @@ const rows = [
       </div>
 
       <!-- EXPLORER – highlighted -->
-      <div class="bg-white rounded-2xl shadow-xl border-2 border-accent flex flex-col relative md:-mt-5 md:-mb-5">
+      <div class="bg-white rounded-2xl shadow-xl border-2 border-accent flex flex-col relative flex-shrink-0 w-[80vw] md:w-auto snap-center md:-mt-5 md:-mb-5">
         <!-- Badge -->
         <div class="absolute -top-4 left-1/2 -translate-x-1/2">
           <span class="bg-accent text-white font-body text-xs font-bold tracking-widest uppercase px-5 py-1.5 rounded-full shadow-md whitespace-nowrap">
@@ -133,7 +133,7 @@ const rows = [
       </div>
 
       <!-- ROYAL -->
-      <div class="bg-text-main rounded-2xl shadow-sm overflow-hidden flex flex-col">
+      <div class="bg-text-main rounded-2xl shadow-sm overflow-hidden flex flex-col flex-shrink-0 w-[80vw] md:w-auto snap-center">
         <div class="px-8 pt-8 pb-6 border-b border-white/10">
           <p class="font-body text-xs font-bold tracking-widest text-white/40 uppercase mb-1">
             {t('packages.royal.sub')}
@@ -165,8 +165,11 @@ const rows = [
 
     </div>
 
+    <!-- Scroll hint – pouze mobil -->
+    <p class="md:hidden font-body text-xs text-text-main/40 text-center mt-3">← přejeďte prstem →</p>
+
     <!-- Footnote -->
-    <p class="font-body text-xs text-text-main/40 text-center mt-10 max-w-xl mx-auto">
+    <p class="font-body text-xs text-text-main/40 text-center mt-6 max-w-xl mx-auto">
       {t('packages.note')}
     </p>
 
