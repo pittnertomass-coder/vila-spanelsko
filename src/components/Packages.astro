@@ -1,0 +1,174 @@
+---
+import { getLang, useTranslations } from '../i18n/utils';
+const lang = getLang(Astro.currentLocale);
+const t = useTranslations(lang);
+
+const rows = [
+  {
+    label: t('packages.row.accommodation'),
+    essential: t('packages.accommodation'),
+    explorer:  t('packages.accommodation'),
+    royal:     t('packages.accommodation'),
+    highlight: false,
+  },
+  {
+    label: t('packages.row.amenities'),
+    essential: t('packages.amenities.val'),
+    explorer:  t('packages.amenities.val'),
+    royal:     t('packages.amenities.val'),
+    highlight: false,
+  },
+  {
+    label: t('packages.row.mobility'),
+    essential: t('packages.mobility.none'),
+    explorer:  t('packages.mobility.car'),
+    royal:     t('packages.mobility.carplus'),
+    highlight: true,
+  },
+  {
+    label: t('packages.row.service'),
+    essential: t('packages.service.standard'),
+    explorer:  t('packages.service.standard'),
+    royal:     t('packages.service.early'),
+    highlight: false,
+  },
+  {
+    label: t('packages.row.welcome'),
+    essential: t('packages.welcome.essential'),
+    explorer:  t('packages.welcome.explorer'),
+    royal:     t('packages.welcome.royal'),
+    highlight: true,
+  },
+  {
+    label: t('packages.row.extra'),
+    essential: t('packages.extra.none'),
+    explorer:  t('packages.extra.none'),
+    royal:     t('packages.extra.royal'),
+    highlight: false,
+  },
+];
+---
+
+<section id="balicky" class="bg-stone-50 py-20 px-4">
+  <div class="max-w-6xl mx-auto">
+
+    <div class="text-center mb-14">
+      <h2 class="font-heading text-3xl md:text-4xl font-bold text-text-main mb-4">
+        {t('packages.h2')}
+      </h2>
+      <p class="font-body text-text-main/60 max-w-xl mx-auto text-base leading-relaxed">
+        {t('packages.subtitle')}
+      </p>
+    </div>
+
+    <!-- Cards grid -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-start pt-5">
+
+      <!-- ESSENTIAL -->
+      <div class="bg-white rounded-2xl shadow-sm border border-stone-200 overflow-hidden flex flex-col">
+        <div class="px-8 pt-8 pb-6 border-b border-stone-100">
+          <p class="font-body text-xs font-bold tracking-widest text-text-main/40 uppercase mb-1">
+            {t('packages.essential.sub')}
+          </p>
+          <h3 class="font-heading text-2xl font-bold text-text-main">
+            {t('packages.essential')}
+          </h3>
+        </div>
+        <div class="flex-1 px-8 py-6 space-y-4">
+          {rows.map((row) => (
+            <div class={`flex flex-col gap-0.5 ${row.highlight ? 'bg-stone-50 rounded-lg px-3 py-2 -mx-3' : ''}`}>
+              <span class="font-body text-xs text-text-main/45 uppercase tracking-wide">{row.label}</span>
+              <span class={`font-body text-sm font-medium ${row.essential.startsWith('—') ? 'text-text-main/30' : 'text-text-main'}`}>
+                {row.essential}
+              </span>
+            </div>
+          ))}
+        </div>
+        <div class="px-8 pb-8 pt-4">
+          <div class="mb-5">
+            <span class="font-heading text-3xl font-bold text-text-main">{t('packages.price.essential')}</span>
+            <span class="font-body text-sm text-text-main/50 ml-1">{t('packages.per.week')}</span>
+          </div>
+          <button data-open-booking data-package={`${t('packages.essential')} — ${t('packages.price.essential')} ${t('packages.per.week')}`} class="w-full text-center font-body text-sm font-semibold tracking-wide border-2 border-text-main/20 text-text-main/70 rounded-xl py-3 hover:border-text-main/50 hover:text-text-main transition-all duration-200">
+            {t('packages.cta')}
+          </button>
+        </div>
+      </div>
+
+      <!-- EXPLORER – highlighted -->
+      <div class="bg-white rounded-2xl shadow-xl border-2 border-accent flex flex-col relative md:-mt-5 md:-mb-5">
+        <!-- Badge -->
+        <div class="absolute -top-4 left-1/2 -translate-x-1/2">
+          <span class="bg-accent text-white font-body text-xs font-bold tracking-widest uppercase px-5 py-1.5 rounded-full shadow-md whitespace-nowrap">
+            {t('packages.popular')}
+          </span>
+        </div>
+        <div class="px-8 pt-10 pb-6 border-b border-accent/15 bg-accent/5 rounded-t-2xl">
+          <p class="font-body text-xs font-bold tracking-widest text-accent/70 uppercase mb-1">
+            {t('packages.explorer.sub')}
+          </p>
+          <h3 class="font-heading text-2xl font-bold text-text-main">
+            {t('packages.explorer')}
+          </h3>
+        </div>
+        <div class="flex-1 px-8 py-6 space-y-4">
+          {rows.map((row) => (
+            <div class={`flex flex-col gap-0.5 ${row.highlight ? 'bg-accent/6 rounded-lg px-3 py-2 -mx-3' : ''}`}>
+              <span class="font-body text-xs text-text-main/45 uppercase tracking-wide">{row.label}</span>
+              <span class={`font-body text-sm font-medium ${row.explorer.startsWith('—') ? 'text-text-main/30' : 'text-text-main'}`}>
+                {row.explorer}
+              </span>
+            </div>
+          ))}
+        </div>
+        <div class="px-8 pb-8 pt-4">
+          <div class="mb-5">
+            <span class="font-heading text-3xl font-bold text-accent">{t('packages.price.explorer')}</span>
+            <span class="font-body text-sm text-text-main/50 ml-1">{t('packages.per.week')}</span>
+          </div>
+          <button data-open-booking data-package={`${t('packages.explorer')} — ${t('packages.price.explorer')} ${t('packages.per.week')}`} class="w-full text-center font-body text-sm font-semibold tracking-wide bg-accent text-white rounded-xl py-3 hover:bg-accent/90 shadow-md transition-all duration-200">
+            {t('packages.cta')}
+          </button>
+        </div>
+      </div>
+
+      <!-- ROYAL -->
+      <div class="bg-text-main rounded-2xl shadow-sm overflow-hidden flex flex-col">
+        <div class="px-8 pt-8 pb-6 border-b border-white/10">
+          <p class="font-body text-xs font-bold tracking-widest text-white/40 uppercase mb-1">
+            {t('packages.royal.sub')}
+          </p>
+          <h3 class="font-heading text-2xl font-bold text-white">
+            {t('packages.royal')}
+          </h3>
+        </div>
+        <div class="flex-1 px-8 py-6 space-y-4">
+          {rows.map((row) => (
+            <div class={`flex flex-col gap-0.5 ${row.highlight ? 'bg-white/8 rounded-lg px-3 py-2 -mx-3' : ''}`}>
+              <span class="font-body text-xs text-white/40 uppercase tracking-wide">{row.label}</span>
+              <span class={`font-body text-sm font-medium ${row.royal.startsWith('—') ? 'text-white/25' : 'text-white/90'}`}>
+                {row.royal}
+              </span>
+            </div>
+          ))}
+        </div>
+        <div class="px-8 pb-8 pt-4">
+          <div class="mb-5">
+            <span class="font-heading text-3xl font-bold text-white">{t('packages.price.royal')}</span>
+            <span class="font-body text-sm text-white/40 ml-1">{t('packages.per.week')}</span>
+          </div>
+          <button data-open-booking data-package={`${t('packages.royal')} — ${t('packages.price.royal')} ${t('packages.per.week')}`} class="w-full text-center font-body text-sm font-semibold tracking-wide border-2 border-white/25 text-white/80 rounded-xl py-3 hover:border-white/60 hover:text-white transition-all duration-200">
+            {t('packages.cta')}
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Footnote -->
+    <p class="font-body text-xs text-text-main/40 text-center mt-10 max-w-xl mx-auto">
+      {t('packages.note')}
+    </p>
+
+  </div>
+</section>

@@ -1,0 +1,324 @@
+---
+import { getLang, useTranslations } from '../i18n/utils';
+const lang = getLang(Astro.currentLocale);
+const t = useTranslations(lang);
+
+// ⚠️ Nahraď tímto svým WhatsApp číslem (bez + a mezer)
+const WA_NUMBER = '420776646111';
+
+// ⚠️ Stejné ID jako v BookingPlaceholder.astro
+const GOOGLE_CALENDAR_SRC = 'TVUJ_CALENDAR_ID%40group.calendar.google.com';
+---
+
+<!-- Modal overlay -->
+<div
+  id="booking-modal"
+  class="fixed inset-0 z-[200] flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-200"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="booking-modal-title"
+>
+  <!-- Backdrop -->
+  <div id="booking-backdrop" class="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
+
+  <!-- Box -->
+  <div
+    id="booking-box"
+    class="relative bg-white rounded-2xl shadow-2xl w-full max-w-md translate-y-4 transition-transform duration-200 max-h-[90vh] overflow-y-auto"
+  >
+    <!-- Header -->
+    <div class="flex items-center justify-between px-7 pt-7 pb-5 border-b border-stone-100">
+      <div>
+        <h2 id="booking-modal-title" class="font-heading text-2xl font-bold text-text-main">
+          {t('form.h2')}
+        </h2>
+        <p class="font-body text-xs text-text-main/45 mt-0.5">Casa de la Palma</p>
+      </div>
+      <button
+        id="booking-close"
+        class="w-9 h-9 flex items-center justify-center rounded-full hover:bg-stone-100 transition-colors text-text-main/50 hover:text-text-main"
+        aria-label="Zavřít"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Form -->
+    <form id="booking-form" class="px-7 py-6 space-y-4" novalidate>
+
+      <!-- Package selector -->
+      <div>
+        <p class="font-body text-xs font-semibold text-text-main/60 uppercase tracking-wide mb-2">{t('packages.h2').split(' ')[0]} &amp; {t('packages.h2').split(' ').slice(1).join(' ')}</p>
+        <div class="grid grid-cols-3 gap-2" id="pkg-radios">
+          {[
+            { id: 'essential', name: t('packages.essential'), price: t('packages.price.essential') },
+            { id: 'explorer',  name: t('packages.explorer'),  price: t('packages.price.explorer')  },
+            { id: 'royal',     name: t('packages.royal'),     price: t('packages.price.royal')      },
+          ].map(pkg => (
+            <label class="pkg-option relative flex flex-col items-center text-center cursor-pointer rounded-xl border-2 border-stone-200 px-2 py-3 hover:border-accent/50 transition-all duration-150 has-[:checked]:border-accent has-[:checked]:bg-accent/5">
+              <input type="radio" name="package" value={`${pkg.name} — ${pkg.price} ${t('packages.per.week')}`} class="sr-only" />
+              <span class="font-body text-xs font-bold text-text-main leading-tight">{pkg.name}</span>
+              <span class="font-body text-xs text-text-main/50 mt-0.5">{pkg.price}</span>
+            </label>
+          ))}
+        </div>
+        <span id="f-package-label" class="hidden"></span>
+      </div>
+
+      <!-- Kalendář dostupnosti -->
+      <div class="rounded-xl overflow-hidden border border-stone-200 bg-stone-50">
+        <div class="flex items-center gap-1.5 px-3 py-2 border-b border-stone-200">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="w-3.5 h-3.5 text-accent">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
+          </svg>
+          <span class="font-body text-xs font-semibold text-text-main/50 uppercase tracking-widest">Dostupnost</span>
+        </div>
+        <div class="relative" style="height: 260px;">
+          <iframe
+            src={`https://calendar.google.com/calendar/embed?src=${GOOGLE_CALENDAR_SRC}&ctz=Europe%2FPrague&mode=MONTH&showTitle=0&showNav=1&showPrint=0&showTabs=0&showCalendars=0&showTz=0&bgcolor=%23FAF9F6`}
+            class="absolute inset-0 w-full h-full border-0"
+            loading="lazy"
+            title="Dostupnost"
+          ></iframe>
+          {GOOGLE_CALENDAR_SRC === 'TVUJ_CALENDAR_ID%40group.calendar.google.com' && (
+            <div class="absolute inset-0 flex flex-col items-center justify-center gap-2 bg-stone-50">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" class="w-10 h-10 text-stone-300">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
+              </svg>
+              <p class="font-body text-xs text-stone-400 text-center">Kalendář dostupnosti<br/>bude zobrazen po nastavení.</p>
+            </div>
+          )}
+        </div>
+      </div>
+
+      <!-- Dates row -->
+      <div class="grid grid-cols-2 gap-3">
+        <div>
+          <label for="f-checkin" class="block font-body text-xs font-semibold text-text-main/60 uppercase tracking-wide mb-1.5">
+            {t('form.checkin')}
+          </label>
+          <input
+            type="date"
+            id="f-checkin"
+            name="checkin"
+            required
+            class="w-full font-body text-sm text-text-main border border-stone-200 rounded-xl px-3 py-2.5 focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/20 transition"
+          />
+        </div>
+        <div>
+          <label for="f-checkout" class="block font-body text-xs font-semibold text-text-main/60 uppercase tracking-wide mb-1.5">
+            {t('form.checkout')}
+          </label>
+          <input
+            type="date"
+            id="f-checkout"
+            name="checkout"
+            required
+            class="w-full font-body text-sm text-text-main border border-stone-200 rounded-xl px-3 py-2.5 focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/20 transition"
+          />
+        </div>
+      </div>
+
+      <!-- Night counter -->
+      <div id="nights-counter" class="hidden items-center justify-center gap-2 bg-stone-50 rounded-xl py-2.5">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="w-4 h-4 text-accent">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z" />
+        </svg>
+        <span class="font-body text-sm font-bold text-text-main" id="nights-count">7</span>
+        <span class="font-body text-sm text-text-main/60" id="nights-label">{t('form.nights')}</span>
+      </div>
+
+      <!-- Guests -->
+      <div>
+        <label for="f-guests" class="block font-body text-xs font-semibold text-text-main/60 uppercase tracking-wide mb-1.5">
+          {t('form.guests')}
+        </label>
+        <select
+          id="f-guests"
+          name="guests"
+          required
+          class="w-full font-body text-sm text-text-main border border-stone-200 rounded-xl px-3 py-2.5 focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/20 transition bg-white"
+        >
+          <option value="">–</option>
+          {[1,2,3,4,5,6,7,8].map(n => <option value={n}>{n}</option>)}
+        </select>
+      </div>
+
+      <!-- Name -->
+      <div>
+        <label for="f-name" class="block font-body text-xs font-semibold text-text-main/60 uppercase tracking-wide mb-1.5">
+          {t('form.name')}
+        </label>
+        <input
+          type="text"
+          id="f-name"
+          name="name"
+          required
+          autocomplete="name"
+          class="w-full font-body text-sm text-text-main border border-stone-200 rounded-xl px-3 py-2.5 focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/20 transition"
+        />
+      </div>
+
+      <!-- Note -->
+      <div>
+        <label for="f-note" class="block font-body text-xs font-semibold text-text-main/60 uppercase tracking-wide mb-1.5">
+          {t('form.note')}
+        </label>
+        <textarea
+          id="f-note"
+          name="note"
+          rows="2"
+          placeholder={t('form.note.placeholder')}
+          class="w-full font-body text-sm text-text-main border border-stone-200 rounded-xl px-3 py-2.5 focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/20 transition resize-none"
+        ></textarea>
+      </div>
+
+      <!-- Submit -->
+      <div class="pt-1">
+        <button
+          type="submit"
+          class="w-full flex items-center justify-center gap-2.5 bg-[#25D366] hover:bg-[#1ebe5d] text-white font-body font-semibold text-base py-3.5 rounded-xl transition-colors duration-200 shadow-md"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+            <path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.533 5.859L.054 23.446a.75.75 0 0 0 .918.918l5.587-1.479A11.943 11.943 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.75a9.712 9.712 0 0 1-4.953-1.354l-.355-.211-3.668.97.984-3.595-.232-.372A9.712 9.712 0 0 1 2.25 12C2.25 6.615 6.615 2.25 12 2.25S21.75 6.615 21.75 12 17.385 21.75 12 21.75z"/>
+          </svg>
+          {t('form.submit')}
+        </button>
+        <p class="text-center font-body text-xs text-text-main/40 mt-2">
+          {t('form.submit.hint')}
+        </p>
+      </div>
+
+    </form>
+  </div>
+</div>
+
+<script define:vars={{ WA_NUMBER, labels: {
+  greeting: t('form.wa.greeting'),
+  checkin:  t('form.wa.checkin'),
+  checkout: t('form.wa.checkout'),
+  guests:   t('form.wa.guests'),
+  name:     t('form.wa.name'),
+  note:     t('form.wa.note'),
+  nights:   t('form.nights'),
+}}}>
+  var modal    = document.getElementById('booking-modal');
+  var box      = document.getElementById('booking-box');
+  var backdrop = document.getElementById('booking-backdrop');
+  var form     = document.getElementById('booking-form');
+
+  function addDays(dateStr, days) {
+    var d = new Date(dateStr);
+    d.setDate(d.getDate() + days);
+    return d.toISOString().split('T')[0];
+  }
+
+  function openBookingModal(packageName) {
+    var today = new Date().toISOString().split('T')[0];
+    var checkinEl  = document.getElementById('f-checkin');
+    var checkoutEl = document.getElementById('f-checkout');
+    checkinEl.min  = today;
+    checkoutEl.min = addDays(today, 7);
+
+    // Předvyber balíček — pokud přišel z tlačítka, použij ho; jinak EXPLORER (index 1)
+    var radios = document.querySelectorAll('input[name="package"]');
+    radios.forEach(function(r) { r.checked = false; });
+    if (packageName) {
+      radios.forEach(function(r) {
+        if (r.value === packageName) r.checked = true;
+      });
+    } else if (radios[1]) {
+      radios[1].checked = true;
+    }
+
+    modal.classList.remove('opacity-0', 'pointer-events-none');
+    box.classList.remove('translate-y-4');
+    document.body.style.overflow = 'hidden';
+    setTimeout(function() { checkinEl.focus(); }, 150);
+  }
+
+  function closeBookingModal() {
+    modal.classList.add('opacity-0', 'pointer-events-none');
+    box.classList.add('translate-y-4');
+    document.body.style.overflow = '';
+  }
+
+  // Event delegation – funguje pro tlačítka renderovaná kdekoli v DOM
+  document.addEventListener('click', function(e) {
+    var target = e.target;
+    while (target && target !== document) {
+      if (target.hasAttribute && target.hasAttribute('data-open-booking')) {
+        e.preventDefault();
+        openBookingModal(target.getAttribute('data-package') || '');
+        return;
+      }
+      target = target.parentNode;
+    }
+  });
+
+  document.getElementById('booking-close').addEventListener('click', closeBookingModal);
+  backdrop.addEventListener('click', closeBookingModal);
+  document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeBookingModal(); });
+
+  function updateNightsCounter() {
+    var checkin  = document.getElementById('f-checkin').value;
+    var checkout = document.getElementById('f-checkout').value;
+    var counter  = document.getElementById('nights-counter');
+    if (checkin && checkout && checkout > checkin) {
+      var diff = Math.round((new Date(checkout) - new Date(checkin)) / 86400000);
+      document.getElementById('nights-count').textContent = diff;
+      document.getElementById('nights-label').textContent = labels.nights;
+      counter.classList.remove('hidden');
+      counter.classList.add('flex');
+    } else {
+      counter.classList.add('hidden');
+      counter.classList.remove('flex');
+    }
+  }
+
+  document.getElementById('f-checkin').addEventListener('change', function() {
+    var minCheckout = addDays(this.value, 7);
+    document.getElementById('f-checkout').min = minCheckout;
+    if (!document.getElementById('f-checkout').value || document.getElementById('f-checkout').value < minCheckout) {
+      document.getElementById('f-checkout').value = minCheckout;
+    }
+    updateNightsCounter();
+  });
+
+  document.getElementById('f-checkout').addEventListener('change', updateNightsCounter);
+
+  function fmtDate(val) {
+    if (!val) return '';
+    var parts = val.split('-');
+    return parseInt(parts[2]) + '. ' + parseInt(parts[1]) + '. ' + parts[0];
+  }
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    var checkin  = document.getElementById('f-checkin').value;
+    var checkout = document.getElementById('f-checkout').value;
+    var guests   = document.getElementById('f-guests').value;
+    var name     = document.getElementById('f-name').value.trim();
+    var note     = document.getElementById('f-note').value.trim();
+    var checkedPkg = document.querySelector('input[name="package"]:checked');
+    var pkg = checkedPkg ? checkedPkg.value : '';
+
+    if (!checkin || !checkout || !guests || !name) return;
+
+    var msg = labels.greeting + '\n\n';
+    if (pkg) msg += '📦 Balíček: ' + pkg + '\n';
+    msg += '📅 ' + labels.checkin + ': ' + fmtDate(checkin) + '\n';
+    msg += '📅 ' + labels.checkout + ': ' + fmtDate(checkout) + '\n';
+    msg += '👥 ' + labels.guests + ': ' + guests + '\n';
+    msg += '👤 ' + labels.name + ': ' + name;
+    if (note) msg += '\n📝 ' + labels.note + ': ' + note;
+
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({ event: 'submit_whatsapp_form', package: pkg || 'none' });
+
+    window.open('https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(msg), '_blank');
+  });
+</script>

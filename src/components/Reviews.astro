@@ -1,0 +1,162 @@
+---
+import { getLang, useTranslations } from '../i18n/utils';
+const lang = getLang(Astro.currentLocale);
+const t = useTranslations(lang);
+
+const reviews = [
+  {
+    text: 'Vila Casa de la Palma předčila veškerá naše očekávání. Nádherná terasa, gril Weber a výhled na moře — každý večer jako z pohlednice. Přímo vedle golfového hřiště, kam chodil manžel každé ráno. Určitě se vrátíme!',
+    name: 'Petra K.',
+    location: '🇨🇿 Praha, Česká republika',
+    date: 'Srpen 2024',
+  },
+  {
+    text: 'An absolutely stunning villa in a perfect location. The pool area is shared with only a few neighbours — incredibly peaceful. The e-bikes were great for exploring the coastal path. Highly recommend for families or groups.',
+    name: 'Michael & Sarah T.',
+    location: '🇬🇧 London, United Kingdom',
+    date: 'July 2024',
+  },
+  {
+    text: 'Eine wunderschöne Villa mit allem, was man sich wünscht. Der Golfplatz nebenan war ein riesiges Plus für uns. Die Küche ist top ausgestattet, der Grill ein Traum. Wir haben 2 Wochen gebucht und jeden Tag genossen.',
+    name: 'Klaus & Monika S.',
+    location: '🇩🇪 München, Deutschland',
+    date: 'September 2024',
+  },
+  {
+    text: 'Ein unvergesslicher Familienurlaub! Unsere Kinder liebten den Pool, wir die Ruhe und das Design. Max Beach Restaurant ist nur wenige Minuten entfernt — die Paella ist fabelhaft. Sehr empfehlenswert!',
+    name: 'Familie Weber',
+    location: '🇨🇭 Zürich, Schweiz',
+    date: 'August 2024',
+  },
+  {
+    text: 'Nejlepší dovolená, co jsme kdy zažili. Vila je přesně tak krásná jako na fotkách a Cabopino Beach je autem za 10 minut. Puerto Banús na večer? Perfektní kombinace. Radek byl od první chvíle skvěle nápomocný.',
+    name: 'Jana & Tomáš N.',
+    location: '🇨🇿 Brno, Česká republika',
+    date: 'Červenec 2024',
+  },
+];
+---
+
+<section class="bg-stone-50 py-20 px-4">
+  <div class="max-w-5xl mx-auto">
+
+    <div class="text-center mb-12">
+      <div class="flex items-center justify-center gap-3 mb-6">
+        <div class="h-px w-12 bg-accent"></div>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 text-accent">
+          <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z" clip-rule="evenodd" />
+        </svg>
+        <div class="h-px w-12 bg-accent"></div>
+      </div>
+      <h2 class="font-heading text-3xl md:text-4xl font-bold text-text-main mb-4">
+        {t('reviews.h2')}
+      </h2>
+      <p class="font-body text-text-main/55 max-w-2xl mx-auto text-base leading-relaxed">
+        {t('reviews.subtitle')}
+      </p>
+    </div>
+
+    <!-- Carousel -->
+    <div class="relative px-10 md:px-14">
+      <div class="overflow-hidden rounded-2xl">
+        <div id="reviews-inner" class="flex transition-transform duration-500 ease-in-out">
+          {reviews.map((r) => (
+            <div class="min-w-full">
+              <div class="bg-white rounded-2xl shadow-sm border border-stone-100 p-8 md:p-10">
+                <!-- Stars -->
+                <div class="flex gap-1 mb-4">
+                  {Array.from({length: 5}).map(() => (
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 text-amber-400">
+                      <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z" clip-rule="evenodd" />
+                    </svg>
+                  ))}
+                </div>
+                <!-- Decorative quote mark -->
+                <div class="font-serif text-6xl text-accent/15 leading-none select-none mb-2">"</div>
+                <!-- Review text -->
+                <blockquote class="font-body text-text-main/80 text-base md:text-lg leading-relaxed mb-8">
+                  {r.text}
+                </blockquote>
+                <!-- Author row -->
+                <div class="flex items-center justify-between flex-wrap gap-4 pt-6 border-t border-stone-100">
+                  <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center text-accent font-heading font-bold text-sm flex-shrink-0">
+                      {r.name.charAt(0)}
+                    </div>
+                    <div>
+                      <p class="font-body font-semibold text-text-main text-sm">{r.name}</p>
+                      <p class="font-body text-text-main/45 text-xs mt-0.5">{r.location} · {r.date}</p>
+                    </div>
+                  </div>
+                  <span class="font-body text-xs text-text-main/35 border border-stone-200 rounded-full px-3 py-1 whitespace-nowrap">
+                    {t('reviews.verified')}
+                  </span>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Prev button -->
+      <button id="rev-prev" aria-label="Previous"
+        class="absolute left-0 top-1/2 -translate-y-1/2 w-9 h-9 bg-white border border-stone-200 rounded-full shadow-sm flex items-center justify-center text-text-main/40 hover:text-accent hover:border-accent transition">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-4 h-4">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
+        </svg>
+      </button>
+
+      <!-- Next button -->
+      <button id="rev-next" aria-label="Next"
+        class="absolute right-0 top-1/2 -translate-y-1/2 w-9 h-9 bg-white border border-stone-200 rounded-full shadow-sm flex items-center justify-center text-text-main/40 hover:text-accent hover:border-accent transition">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-4 h-4">
+          <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Dots -->
+    <div id="rev-dots" class="flex justify-center gap-2 mt-6">
+      {reviews.map((_, i) => (
+        <button data-dot={i} aria-label={`Review ${i + 1}`}
+          class="h-2 rounded-full transition-all duration-300 cursor-pointer">
+        </button>
+      ))}
+    </div>
+
+  </div>
+</section>
+
+<script>
+  (function() {
+    var inner = document.getElementById('reviews-inner');
+    var dots = document.querySelectorAll('#rev-dots [data-dot]');
+    var total = dots.length;
+    var current = 0;
+    var timer = null;
+
+    function goTo(idx) {
+      current = ((idx % total) + total) % total;
+      if (inner) inner.style.transform = 'translateX(-' + (current * 100) + '%)';
+      dots.forEach(function(d, i) {
+        if (i === current) {
+          d.className = 'w-6 h-2 rounded-full bg-accent transition-all duration-300 cursor-pointer';
+        } else {
+          d.className = 'w-2 h-2 rounded-full bg-stone-300 transition-all duration-300 cursor-pointer';
+        }
+      });
+      if (timer) clearTimeout(timer);
+      timer = setTimeout(function() { goTo(current + 1); }, 5500);
+    }
+
+    var prev = document.getElementById('rev-prev');
+    var next = document.getElementById('rev-next');
+    if (prev) prev.addEventListener('click', function() { goTo(current - 1); });
+    if (next) next.addEventListener('click', function() { goTo(current + 1); });
+    dots.forEach(function(d, i) {
+      d.addEventListener('click', function() { goTo(i); });
+    });
+
+    goTo(0);
+  })();
+</script>

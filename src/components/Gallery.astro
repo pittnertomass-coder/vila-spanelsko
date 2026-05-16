@@ -1,0 +1,224 @@
+---
+import { getLang, useTranslations } from '../i18n/utils';
+const lang = getLang(Astro.currentLocale);
+const t = useTranslations(lang);
+
+const categories = [
+  {
+    key: 'garden',
+    cover: '/images/zahrada2_result.webp',
+    photos: [
+      { src: '/images/zahrada_result.webp', alt: 'Zahrada' },
+      { src: '/images/zahrada1_result.webp', alt: 'Zahrada 1' },
+      { src: '/images/zahrada2_result.webp', alt: 'Zahrada 2' },
+      { src: '/images/zahrada3_result.webp', alt: 'Zahrada 3' },
+      { src: '/images/zahrada4_result.webp', alt: 'Zahrada 4' },
+      { src: '/images/zahrada5_result.webp', alt: 'Zahrada 5' },
+      { src: '/images/zahrada6.webp', alt: 'Zahrada 6' },
+    ],
+  },
+  {
+    key: 'bathrooms',
+    cover: '/images/koupelna2_result.webp',
+    photos: [
+      { src: '/images/koupelna_result.webp', alt: 'Koupelna' },
+      { src: '/images/koupelna1_result.webp', alt: 'Koupelna 1' },
+      { src: '/images/koupelna2_result.webp', alt: 'Koupelna 2' },
+      { src: '/images/koupelna3_result.webp', alt: 'Koupelna 3' },
+      { src: '/images/koupelna4_result.webp', alt: 'Koupelna 4' },
+    ],
+  },
+  {
+    key: 'kitchen',
+    cover: '/images/kuchyn%C4%9B2_result.webp',
+    photos: [
+      { src: '/images/kuchyn%C4%9B_result.webp', alt: 'Kuchyně' },
+      { src: '/images/kuchyn%C4%9B1_result.webp', alt: 'Kuchyně 1' },
+      { src: '/images/kuchyn%C4%9B2_result.webp', alt: 'Kuchyně 2' },
+    ],
+  },
+  {
+    key: 'bedrooms',
+    cover: '/images/lo%C5%BEnice6_result.webp',
+    photos: [
+      { src: '/images/lo%C5%BEnice_result.webp', alt: 'Ložnice' },
+      { src: '/images/lo%C5%BEnice1_result.webp', alt: 'Ložnice 1' },
+      { src: '/images/lo%C5%BEnice2_result.webp', alt: 'Ložnice 2' },
+      { src: '/images/lo%C5%BEnice3_result.webp', alt: 'Ložnice 3' },
+      { src: '/images/lo%C5%BEnice4_result.webp', alt: 'Ložnice 4' },
+      { src: '/images/lo%C5%BEnice5_result.webp', alt: 'Ložnice 5' },
+      { src: '/images/lo%C5%BEnice6_result.webp', alt: 'Ložnice 6' },
+      { src: '/images/lo%C5%BEnice7_result.webp', alt: 'Ložnice 7' },
+      { src: '/images/lo%C5%BEnice8_result.webp', alt: 'Ložnice 8' },
+      { src: '/images/lo%C5%BEnice9_result.webp', alt: 'Ložnice 9' },
+    ],
+  },
+  {
+    key: 'common',
+    cover: '/images/spolecne%20prostory5_result.webp',
+    photos: [
+      { src: '/images/spolecne%20prostory_result.webp', alt: 'Společné prostory' },
+      { src: '/images/spolecne%20prostory1_result.webp', alt: 'Společné prostory 1' },
+      { src: '/images/spolecne%20prostory2_result.webp', alt: 'Společné prostory 2' },
+      { src: '/images/spolecne%20prostory3_result.webp', alt: 'Společné prostory 3' },
+      { src: '/images/spolecne%20prostory4_result.webp', alt: 'Společné prostory 4' },
+      { src: '/images/spolecne%20prostory5_result.webp', alt: 'Společné prostory 5' },
+      { src: '/images/spolecne%20prostory6_result.webp', alt: 'Společné prostory 6' },
+      { src: '/images/spolecne%20prostory7_result.webp', alt: 'Společné prostory 7' },
+      { src: '/images/spolecne%20prostory8_result.webp', alt: 'Společné prostory 8' },
+      { src: '/images/spolecne%20prostory9_result.webp', alt: 'Společné prostory 9' },
+      { src: '/images/spolecne%20prostory10_result.webp', alt: 'Společné prostory 10' },
+      { src: '/images/spolecne%20prostory11_result.webp', alt: 'Společné prostory 11' },
+      { src: '/images/spolecne-4.webp', alt: 'Společné prostory 12' },
+    ],
+  },
+  {
+    key: 'living',
+    cover: '/images/obyvac%C3%AD%20prostory1_result.webp',
+    photos: [
+      { src: '/images/obyvac%C3%AD%20prostory_result.webp', alt: 'Obývací prostory' },
+      { src: '/images/obyvac%C3%AD%20prostory1_result.webp', alt: 'Obývací prostory 1' },
+      { src: '/images/obyvac%C3%AD%20prostory2_result.webp', alt: 'Obývací prostory 2' },
+      { src: '/images/obyvac%C3%AD%20prostory3_result.webp', alt: 'Obývací prostory 3' },
+      { src: '/images/obyvac%C3%AD%20prostory4_result.webp', alt: 'Obývací prostory 4' },
+    ],
+  },
+  {
+    key: 'terrace',
+    cover: '/images/terasa1_result.webp',
+    photos: [
+      { src: '/images/terasa_result.webp', alt: 'Terasa' },
+      { src: '/images/terasa1_result.webp', alt: 'Terasa 1' },
+      { src: '/images/terasa2_result.webp', alt: 'Terasa 2' },
+      { src: '/images/terasa3_result.webp', alt: 'Terasa 3' },
+      { src: '/images/terasa.jpg', alt: 'Terasa 4' },
+    ],
+  },
+];
+
+type CatKey = `gallery.cat.${string}`;
+---
+
+<section class="bg-primary py-20 px-4">
+  <div class="max-w-6xl mx-auto">
+    <h2 class="font-heading text-3xl md:text-4xl font-bold text-text-main text-center mb-4">
+      {t('gallery.h2')}
+    </h2>
+    <p class="text-center text-text-main/50 font-body text-sm mb-12">
+      {t('gallery.subtitle')}
+    </p>
+
+    <div class="flex md:grid md:grid-cols-4 gap-4 overflow-x-auto md:overflow-visible pb-4 md:pb-0 snap-x snap-mandatory md:snap-none -mx-4 px-4 md:mx-0 md:px-0">
+      {categories.map((cat) => {
+        const name = t(`gallery.cat.${cat.key}` as CatKey);
+        return (
+          <button
+            class="relative group rounded-xl overflow-hidden cursor-pointer shrink-0 w-[72vw] sm:w-[45vw] md:w-auto aspect-[3/4] focus:outline-none focus:ring-2 focus:ring-accent snap-start"
+            data-photos={JSON.stringify(cat.photos)}
+            data-name={name}
+            aria-label={name}
+          >
+            <img
+              src={cat.cover}
+              alt={name}
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              loading="lazy"
+            />
+            <div class="absolute inset-0" style="background: linear-gradient(to top, rgba(0,0,0,0.48) 0%, rgba(0,0,0,0) 50%);"></div>
+            <div class="absolute inset-0 bg-black/0 group-hover:bg-black/38 transition-colors duration-300"></div>
+            <div class="absolute inset-0 flex flex-col items-center justify-end pb-6 px-3">
+              <span class="text-white font-heading text-lg md:text-xl font-bold drop-shadow text-center leading-tight">
+                {name}
+              </span>
+              <span class="text-white/70 font-body text-xs mt-1">
+                {cat.photos.length} {t('gallery.photos')}
+              </span>
+            </div>
+          </button>
+        );
+      })}
+    </div>
+    <p class="md:hidden text-center text-text-main/40 font-body text-xs mt-3">{t('gallery.hint')}</p>
+  </div>
+</section>
+
+<!-- Lightbox -->
+<div
+  id="lightbox"
+  class="fixed inset-0 z-50 bg-black/90 hidden items-center justify-center"
+  role="dialog"
+  aria-modal="true"
+>
+  <button id="lb-close" class="absolute top-4 right-5 text-white/70 hover:text-white text-4xl leading-none transition-colors z-10" aria-label="Zavřít">&times;</button>
+  <p id="lb-title" class="absolute top-5 left-1/2 -translate-x-1/2 text-white font-heading text-lg font-bold drop-shadow z-10 whitespace-nowrap"></p>
+
+  <button id="lb-prev" class="absolute left-3 md:left-6 text-white/70 hover:text-white transition-colors z-10 p-2 rounded-full hover:bg-white/10" aria-label="Předchozí">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-8 h-8">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
+    </svg>
+  </button>
+
+  <div class="flex flex-col items-center px-16">
+    <img id="lb-img" src="" alt="" class="max-h-[82vh] max-w-[88vw] object-contain rounded-xl shadow-2xl" />
+    <p id="lb-counter" class="text-white/40 font-body text-xs mt-3"></p>
+  </div>
+
+  <button id="lb-next" class="absolute right-3 md:right-6 text-white/70 hover:text-white transition-colors z-10 p-2 rounded-full hover:bg-white/10" aria-label="Další">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-8 h-8">
+      <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+    </svg>
+  </button>
+</div>
+
+<script>
+  const lb        = document.getElementById('lightbox')!;
+  const lbImg     = document.getElementById('lb-img') as HTMLImageElement;
+  const lbTitle   = document.getElementById('lb-title')!;
+  const lbCounter = document.getElementById('lb-counter')!;
+  const lbClose   = document.getElementById('lb-close')!;
+  const lbPrev    = document.getElementById('lb-prev')!;
+  const lbNext    = document.getElementById('lb-next')!;
+
+  let photos: { src: string; alt: string }[] = [];
+  let current = 0;
+
+  function show(index: number) {
+    current = (index + photos.length) % photos.length;
+    lbImg.src = photos[current].src;
+    lbImg.alt = photos[current].alt;
+    lbCounter.textContent = `${current + 1} / ${photos.length}`;
+  }
+
+  function openLightbox(newPhotos: { src: string; alt: string }[], name: string) {
+    photos = newPhotos;
+    lbTitle.textContent = name;
+    lb.classList.remove('hidden');
+    lb.classList.add('flex');
+    document.body.style.overflow = 'hidden';
+    show(0);
+  }
+
+  function closeLightbox() {
+    lb.classList.add('hidden');
+    lb.classList.remove('flex');
+    document.body.style.overflow = '';
+  }
+
+  document.querySelectorAll<HTMLButtonElement>('[data-photos]').forEach(card => {
+    card.addEventListener('click', () => {
+      openLightbox(JSON.parse(card.dataset.photos!), card.dataset.name!);
+    });
+  });
+
+  lbClose.addEventListener('click', closeLightbox);
+  lbPrev.addEventListener('click', () => show(current - 1));
+  lbNext.addEventListener('click', () => show(current + 1));
+  lb.addEventListener('click', (e) => { if (e.target === lb) closeLightbox(); });
+
+  document.addEventListener('keydown', (e) => {
+    if (lb.classList.contains('hidden')) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft') show(current - 1);
+    if (e.key === 'ArrowRight') show(current + 1);
+  });
+</script>

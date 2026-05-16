@@ -1,0 +1,62 @@
+---
+import { getLang, useTranslations } from '../i18n/utils';
+const lang = getLang(Astro.currentLocale);
+const t = useTranslations(lang);
+---
+
+<div id="weather-widget" class="mt-4" style="display:none;">
+  <div class="bg-primary rounded-xl p-5 flex items-center gap-4">
+    <div id="weather-icon" class="text-4xl flex-shrink-0 leading-none">🌤️</div>
+    <div class="flex-1 min-w-0">
+      <p class="font-body text-xs text-accent font-semibold uppercase tracking-wider mb-1">{t('weather.label')}</p>
+      <div class="flex items-baseline gap-2 flex-wrap">
+        <span id="weather-temp" class="font-heading font-bold text-2xl text-text-main">--°C</span>
+        <span id="weather-desc" class="font-body text-sm text-text-main/60"></span>
+      </div>
+      <div class="flex gap-4 mt-1">
+        <span class="font-body text-xs text-text-main/50">
+          <span id="weather-feels">--°C</span> {t('weather.feels')}
+        </span>
+        <span class="font-body text-xs text-text-main/50">
+          <span id="weather-humidity">--%</span> {t('weather.humidity')}
+        </span>
+      </div>
+    </div>
+    <div class="hidden md:block text-right flex-shrink-0">
+      <p class="font-body text-xs text-text-main/35">{t('weather.location')}</p>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function() {
+    var codeMap = {
+      113:'☀️', 116:'⛅', 119:'🌥️', 122:'☁️', 143:'🌫️',
+      176:'🌦️', 179:'🌨️', 182:'🌧️', 185:'🌧️', 200:'⛈️',
+      227:'🌨️', 230:'❄️', 248:'🌫️', 260:'🌫️', 263:'🌦️',
+      266:'🌧️', 281:'🌧️', 284:'🌧️', 293:'🌦️', 296:'🌧️',
+      299:'🌧️', 302:'🌧️', 305:'🌧️', 308:'🌧️', 311:'🌧️',
+      314:'🌧️', 317:'🌨️', 320:'🌨️', 323:'🌨️', 326:'🌨️',
+      329:'❄️', 332:'❄️', 335:'❄️', 338:'❄️', 350:'🌧️',
+      353:'🌦️', 356:'🌧️', 359:'🌧️', 362:'🌨️', 365:'🌨️',
+      368:'🌨️', 371:'❄️', 374:'🌧️', 377:'🌧️', 386:'⛈️',
+      389:'⛈️', 392:'⛈️', 395:'❄️'
+    };
+
+    fetch('https://wttr.in/Mijas,Spain?format=j1')
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        var c = data.current_condition[0];
+        var code = parseInt(c.weatherCode, 10);
+        var el = document.getElementById('weather-widget');
+        if (!el) return;
+        document.getElementById('weather-temp').textContent = c.temp_C + '°C';
+        document.getElementById('weather-feels').textContent = c.FeelsLikeC + '°C';
+        document.getElementById('weather-humidity').textContent = c.humidity + '%';
+        document.getElementById('weather-desc').textContent = c.weatherDesc[0].value;
+        document.getElementById('weather-icon').textContent = codeMap[code] || '🌡️';
+        el.style.display = 'block';
+      })
+      .catch(function() {});
+  })();
+</script>
