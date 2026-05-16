@@ -1,0 +1,94 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout title="Zásady ochrany osobních údajů – Casa de la Palma">
+  <div class="bg-primary min-h-screen">
+
+    <!-- Back link -->
+    <div class="max-w-3xl mx-auto px-6 pt-10 pb-4">
+      <a href="/" class="inline-flex items-center gap-2 font-body text-sm text-text-main/50 hover:text-accent transition-colors">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
+        </svg>
+        Zpět na web
+      </a>
+    </div>
+
+    <article class="max-w-3xl mx-auto px-6 py-10 pb-24">
+      <h1 class="font-heading text-3xl md:text-4xl font-bold text-text-main mb-2">
+        Zásady ochrany osobních údajů
+      </h1>
+      <p class="font-body text-sm text-text-main/40 mb-10">Poslední aktualizace: 16. 5. 2025</p>
+
+      <div class="font-body text-text-main/80 leading-relaxed space-y-8 text-base">
+
+        <section>
+          <h2 class="font-heading text-xl font-bold text-text-main mb-3">1. Správce osobních údajů</h2>
+          <p>Správcem osobních údajů je provozovatel ubytování Casa de la Palma (dále jen „správce"), dostupný na e-mailu <a href="mailto:info@vilaspanelsko.cz" class="text-accent hover:underline">info@vilaspanelsko.cz</a>.</p>
+        </section>
+
+        <section>
+          <h2 class="font-heading text-xl font-bold text-text-main mb-3">2. Jaké údaje zpracováváme</h2>
+          <ul class="list-disc pl-5 space-y-1">
+            <li>Jméno a příjmení</li>
+            <li>E-mailová adresa</li>
+            <li>Telefonní číslo</li>
+            <li>Datum příjezdu a odjezdu, počet osob</li>
+            <li>IP adresa a technické údaje o návštěvě webu (cookies, analytika)</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 class="font-heading text-xl font-bold text-text-main mb-3">3. Účel zpracování</h2>
+          <ul class="list-disc pl-5 space-y-1">
+            <li><strong>Rezervace a komunikace:</strong> zpracování poptávek a potvrzení ubytování</li>
+            <li><strong>Analytika:</strong> měření návštěvnosti webu přes Google Analytics (anonymizovaná data)</li>
+            <li><strong>Remarketing:</strong> zobrazování reklam návštěvníkům webu přes Google Ads / Meta Ads (pouze se souhlasem)</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 class="font-heading text-xl font-bold text-text-main mb-3">4. Cookies</h2>
+          <p class="mb-3">Web používá následující typy cookies:</p>
+          <ul class="list-disc pl-5 space-y-2">
+            <li><strong>Nezbytné cookies</strong> – zajišťují základní funkce webu. Nelze je odmítnout.</li>
+            <li><strong>Analytické cookies</strong> – Google Analytics (GA4). Měří návštěvnost anonymně. Lze odmítnout.</li>
+            <li><strong>Marketingové cookies</strong> – Google Ads, Meta Pixel. Slouží k remarketingu. Vyžadují váš souhlas.</li>
+          </ul>
+          <p class="mt-3">Souhlas s cookies udělujete kliknutím na „Přijmout vše" v cookie liště. Souhlas lze kdykoli odvolat vymazáním cookies v nastavení prohlížeče.</p>
+        </section>
+
+        <section>
+          <h2 class="font-heading text-xl font-bold text-text-main mb-3">5. Doba uchovávání</h2>
+          <p>Osobní údaje z rezervací uchováváme po dobu 3 let od ukončení pobytu. Analytická data jsou anonymizována a uchována po dobu stanovenou Google Analytics (max. 26 měsíců).</p>
+        </section>
+
+        <section>
+          <h2 class="font-heading text-xl font-bold text-text-main mb-3">6. Vaše práva</h2>
+          <p>Máte právo na přístup ke svým údajům, jejich opravu, výmaz, omezení zpracování a přenositelnost. Máte také právo podat stížnost u Úřadu pro ochranu osobních údajů (<a href="https://www.uoou.cz" target="_blank" rel="noopener" class="text-accent hover:underline">www.uoou.cz</a>).</p>
+          <p class="mt-2">Žádosti zasílejte na: <a href="mailto:info@vilaspanelsko.cz" class="text-accent hover:underline">info@vilaspanelsko.cz</a></p>
+        </section>
+
+        <section>
+          <h2 class="font-heading text-xl font-bold text-text-main mb-3">7. Check-in / Check-out</h2>
+          <p>Pro vyloučení pochybností uvádíme závazné časy pobytu:</p>
+          <ul class="list-disc pl-5 space-y-1 mt-2">
+            <li><strong>Check-in:</strong> od 15:00 hod.</li>
+            <li><strong>Check-out:</strong> do 10:00 hod.</li>
+          </ul>
+          <p class="mt-2">Jiný čas příjezdu nebo odjezdu je možný pouze po předchozí dohodě s provozovatelem.</p>
+        </section>
+
+        <section>
+          <h2 class="font-heading text-xl font-bold text-text-main mb-3">8. Kontakt</h2>
+          <p>Veškeré dotazy k ochraně osobních údajů směřujte na:<br />
+          <a href="mailto:info@vilaspanelsko.cz" class="text-accent hover:underline">info@vilaspanelsko.cz</a></p>
+        </section>
+
+      </div>
+    </article>
+  </div>
+  <Footer />
+</Layout>

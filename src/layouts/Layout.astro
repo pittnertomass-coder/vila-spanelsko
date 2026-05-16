@@ -12,6 +12,53 @@ interface Props {
   title?: string;
 }
 const { title = t('page.title') } = Astro.props;
+
+const SITE = 'https://www.villadelapalma.com';
+const OG_IMAGE = `${SITE}/images/hero.webp`;
+
+const descriptions: Record<string, string> = {
+  cs: 'Luxusní vila se 3 ložnicemi pro 6–8 hostů na Costa del Sol. Výhled na moře, rezidenční bazén, golf přímo v sousedství. Rezervujte napřímo za nejlepší cenu.',
+  en: 'Luxury villa with 3 bedrooms for 6–8 guests on the Costa del Sol. Sea views, residential pool, golf right next door. Book directly for the best price.',
+  de: 'Luxusvilla mit 3 Schlafzimmern für 6–8 Gäste an der Costa del Sol. Meerblick, Gemeinschaftspool, Golf direkt nebenan. Direkt zum besten Preis buchen.',
+  es: 'Villa de lujo con 3 dormitorios para 6–8 huéspedes en la Costa del Sol. Vistas al mar, piscina residencial, golf al lado. Reserve directamente al mejor precio.',
+};
+const description = descriptions[lang] ?? descriptions.cs;
+
+const langPaths: Record<string, string> = { cs: '/', en: '/en/', de: '/de/', es: '/es/' };
+const canonicalPath = langPaths[lang] ?? '/';
+const canonical = `${SITE}${canonicalPath}`;
+
+const ogLocales: Record<string, string> = { cs: 'cs_CZ', en: 'en_GB', de: 'de_DE', es: 'es_ES' };
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'VacationRental',
+  name: 'Casa de la Palma – Villa de La Palma',
+  description: descriptions.en,
+  url: SITE,
+  image: [OG_IMAGE],
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: 'Riviera del Sol',
+    addressLocality: 'Mijas',
+    addressRegion: 'Andalucía',
+    postalCode: '29649',
+    addressCountry: 'ES',
+  },
+  numberOfRooms: 3,
+  occupancy: { '@type': 'QuantitativeValue', maxValue: 8 },
+  amenityFeature: [
+    { '@type': 'LocationFeatureSpecification', name: 'Swimming Pool', value: true },
+    { '@type': 'LocationFeatureSpecification', name: 'Air Conditioning', value: true },
+    { '@type': 'LocationFeatureSpecification', name: 'WiFi', value: true },
+    { '@type': 'LocationFeatureSpecification', name: 'Smart TV', value: true },
+    { '@type': 'LocationFeatureSpecification', name: 'BBQ Grill', value: true },
+    { '@type': 'LocationFeatureSpecification', name: 'Parking', value: true },
+  ],
+  petsAllowed: false,
+  checkinTime: '15:00',
+  checkoutTime: '10:00',
+};
 ---
 <!doctype html>
 <html lang={lang}>
@@ -19,8 +66,37 @@ const { title = t('page.title') } = Astro.props;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+
+    <!-- Hreflang alternates -->
+    <link rel="alternate" hreflang="cs" href={`${SITE}/`} />
+    <link rel="alternate" hreflang="en" href={`${SITE}/en/`} />
+    <link rel="alternate" hreflang="de" href={`${SITE}/de/`} />
+    <link rel="alternate" hreflang="es" href={`${SITE}/es/`} />
+    <link rel="alternate" hreflang="x-default" href={`${SITE}/`} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={OG_IMAGE} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content={ogLocales[lang] ?? 'cs_CZ'} />
+    <meta property="og:site_name" content="Casa de la Palma" />
+
+    <!-- Twitter / X Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={OG_IMAGE} />
+
+    <!-- JSON-LD VacationRental -->
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -37,7 +113,6 @@ const { title = t('page.title') } = Astro.props;
       'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
       })(window,document,'script','dataLayer','GTM-XXXXXXX');
     </script>
-    <!-- End GTM head -->
   </head>
   <body class="bg-primary text-text-main font-body">
 
