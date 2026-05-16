@@ -22,7 +22,7 @@ export const ui = {
     'hero.badge.pool': 'Bazén v areálu',
     'hero.badge.pool.label': 'Areál',
     'about.h2': 'Únik do středomořského ráje',
-    'about.text': 'Zapomeňte na stres a nechte se pohltit harmonií španělského slunce. Naše vila propojuje autentický středomořský styl s moderním komfortem a naprostým soukromím. Probouzejte se s výhledem na nekonečné vlny, užívejte si klid v designovém interiéru a večery trávte s rodinou u osvěžujícího bazénu. Tady čas plyne přesně tak, jak si přejete.',
+    'about.text': 'Spojení španělského temperamentu, moderního komfortu a soukromí. Z naší casy si užijete výhledy na moře, klidný designový interiér i relax u bazénu.',
     'amenities.h2': 'Vše pro váš dokonalý pobyt',
     'amenities.pool.title': 'Rezidenční bazén jen pro pár sousedů',
     'amenities.pool.desc': 'Obrovský bazén sdílený pouze s hrstkou sousedů z exkluzivního areálu vil.',
